@@ -48,18 +48,16 @@ public class CompositeSWithSubS {
 
     public final void subscriberSticky(Map<Class<?>, Object> objectMap) {
         List<Class> classes = new ArrayList<>();
-        for (Map.Entry<Class<?>, Object> classObjectEntry : objectMap.entrySet()) {
-            for (SubscriberEvent subscriberEvent : subscriberEvents) {
-                if (classObjectEntry.getKey() == subscriberEvent.getParameter()) {
+        for (Map.Entry<Class<?>, Object> classObjectEntry : objectMap.entrySet())
+            for (SubscriberEvent subscriberEvent : subscriberEvents)
+                if (classObjectEntry.getKey() == subscriberEvent.getParameter())
                     try {
                         classes.add(classObjectEntry.getKey());
                         subscriberEvent.handleEvent(classObjectEntry.getValue());
                     } catch (InvocationTargetException e) {
                         e.printStackTrace();
                     }
-                }
-            }
-        }
+
         RxBus.getInstance().mStickyEventMapRemove(classes);
     }
 }

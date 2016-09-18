@@ -8,7 +8,10 @@ import java.util.Set;
 import rx.subscriptions.CompositeSubscription;
 
 /**
- * 注解解析类
+ * Created by yan on 2016/9/18.
+ * <p/>
+ * AnalysisAnnotation class
+ * find method annotated @Subscribe
  */
 public final class AnalysisAnnotated {
 
@@ -42,6 +45,7 @@ public final class AnalysisAnnotated {
                 SubscriberEvent subscriberEvent = new SubscriberEvent(listenerClass, method, thread);
                 if (!subscriberMethods.contains(subscriberEvent)) {
                     subscriberMethods.add(subscriberEvent);
+                    //register
                     compositeSubscription.add(subscriberEvent.getSubscription());
                 }
             }

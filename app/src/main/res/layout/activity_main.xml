@@ -11,16 +11,28 @@
     tools:context="com.yan.rxbustest.MainActivity">
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/button1"
+        android:text="button1(click and longClick)"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
     <Button
         android:id="@+id/button2"
+        android:text="button2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <Button
+        android:id="@+id/button3"
+        android:text="button3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <Button
+        android:id="@+id/button4"
+        android:text="button4(stickyEvent test)"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <fragment
-        android:tag="sadfasf"
+        android:tag="fragment"
         android:name="com.yan.rxbustest.BlankFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

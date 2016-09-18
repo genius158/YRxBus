@@ -26,7 +26,7 @@ public class RxBus {
             subSConcurrentHashMap = new ConcurrentHashMap<>();
 
     /**
-     * Sticky消息处理
+     * Sticky dell
      *
      * @param event
      */
@@ -46,12 +46,12 @@ public class RxBus {
         for (Class aClass : classes) mStickyEventMap.remove(aClass);
     }
 
-    private  RxBus() {
+    private RxBus() {
         BUS = new SerializedSubject<>(PublishSubject.create());
         mStickyEventMap = new HashMap<>();
     }
 
-    public   static RxBus getInstance() {
+    public static RxBus getInstance() {
         if (rxBus == null)
             synchronized (RxBus.class) {
                 if (rxBus == null) rxBus = new RxBus();
@@ -60,7 +60,7 @@ public class RxBus {
     }
 
     /**
-     * 事件分发
+     * post event
      *
      * @param o
      */
@@ -69,7 +69,8 @@ public class RxBus {
     }
 
     /**
-     * 订阅事件
+     * the most important method
+     * make relevance
      *
      * @param eventType
      * @param <T>
@@ -117,7 +118,7 @@ public class RxBus {
 
 
     /**
-     * 发送一个新Sticky事件
+     * post a sticky event
      */
     public final void postSticky(Object event) {
         mStickyEventMap.put(event.getClass(), event);
