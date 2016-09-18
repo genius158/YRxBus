@@ -30,13 +30,16 @@ public class MainActivity extends AppCompatActivity {
         button3 = (Button) findViewById(R.id.button3);
         button4 = (Button) findViewById(R.id.button4);
 
-        button1.setOnClickListener(view ->
-                RxBus.getInstance().post((Action.Action1) () -> "Action1")
-        );
         button1.setOnLongClickListener(view -> {
             RxBus.getInstance().post(new Integer((int) (Math.random() * 255)));
             return true;
         });
+
+
+        button1.setOnClickListener(view ->
+                RxBus.getInstance().post((Action.Action1) () -> "Action1")
+        );
+
         button2.setOnClickListener(view ->
                 RxBus.getInstance().post((Action.Action2) () -> "Action2")
         );
