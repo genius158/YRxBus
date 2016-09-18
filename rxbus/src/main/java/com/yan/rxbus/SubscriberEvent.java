@@ -36,11 +36,11 @@ public class SubscriberEvent {
         initObservable(this.method.getParameterTypes()[0]);
     }
 
-    public Class getParameter() {
+    public final Class getParameter() {
         return this.method.getParameterTypes()[0];
     }
 
-    private void initObservable(Class aClass) {
+    private final void initObservable(Class aClass) {
         subscription = RxBus.getInstance().
                 toObservable(aClass)
                 .observeOn(EventThread.getScheduler(thread))
@@ -49,6 +49,7 @@ public class SubscriberEvent {
                     public void call(Object event) {
                         try {
                             handleEvent(event);
+                            RxBus.getInstance().dellSticky(event);
                         } catch (InvocationTargetException e) {
                             throwRuntimeException("Could not dispatch event: " + event.getClass() + " to subscriber " + SubscriberEvent.this, e);
                         }
@@ -56,14 +57,14 @@ public class SubscriberEvent {
                 });
     }
 
-    public Subscription getSubscription() {
+    public final Subscription getSubscription() {
         return subscription;
     }
 
-    public void handleEvent(Object event) throws InvocationTargetException {
+    public final void handleEvent(Object event) throws InvocationTargetException {
         try {
             method.invoke(target, event);
-            RxBus.getInstance().dellSticky(event);
+
         } catch (IllegalAccessException e) {
             throw new AssertionError(e);
         } catch (InvocationTargetException e) {
@@ -75,7 +76,7 @@ public class SubscriberEvent {
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public final boolean equals(Object obj) {
         if (this == obj) {
             return true;
         }
@@ -92,11 +93,11 @@ public class SubscriberEvent {
         return method.equals(other.method) && target == other.target;
     }
 
-    public void throwRuntimeException(String msg, InvocationTargetException e) {
+    public final void throwRuntimeException(String msg, InvocationTargetException e) {
         throwRuntimeException(msg, e.getCause());
     }
 
-    public void throwRuntimeException(String msg, Throwable e) {
+    public final void throwRuntimeException(String msg, Throwable e) {
         Throwable cause = e.getCause();
         if (cause != null) {
             throw new RuntimeException(msg + ": " + cause.getMessage(), cause);

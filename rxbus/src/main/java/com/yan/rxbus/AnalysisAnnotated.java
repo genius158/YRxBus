@@ -49,6 +49,4 @@ public final class AnalysisAnnotated {
         return new CompositeSWithSubS(compositeSubscription, listenerClass, subscriberMethods);
     }
 
-    private AnalysisAnnotated() {
-    }
 }

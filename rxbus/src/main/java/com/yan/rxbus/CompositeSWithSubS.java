@@ -1,6 +1,8 @@
 package com.yan.rxbus;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -14,27 +16,27 @@ public class CompositeSWithSubS {
     private Object object;
     private Set<SubscriberEvent> subscriberEvents;
 
-    public CompositeSubscription getCompositeSubscription() {
+    public final CompositeSubscription getCompositeSubscription() {
         return compositeSubscription;
     }
 
-    public void setCompositeSubscription(CompositeSubscription compositeSubscription) {
+    public final void setCompositeSubscription(CompositeSubscription compositeSubscription) {
         this.compositeSubscription = compositeSubscription;
     }
 
-    public Object getObject() {
+    public final Object getObject() {
         return object;
     }
 
-    public void setObject(Class<?> object) {
+    public final void setObject(Class<?> object) {
         this.object = object;
     }
 
-    public Set<SubscriberEvent> getSubscriberEvents() {
+    public final Set<SubscriberEvent> getSubscriberEvents() {
         return subscriberEvents;
     }
 
-    public void setSubscriberEvents(Set<SubscriberEvent> subscriberEvents) {
+    public final void setSubscriberEvents(Set<SubscriberEvent> subscriberEvents) {
         this.subscriberEvents = subscriberEvents;
     }
 
@@ -44,11 +46,13 @@ public class CompositeSWithSubS {
         this.subscriberEvents = subscriberEvents;
     }
 
-    public void subscriberSticky(Map<Class<?>, Object> objectMap) {
+    public final void subscriberSticky(Map<Class<?>, Object> objectMap) {
+        List<Class> classes = new ArrayList<>();
         for (Map.Entry<Class<?>, Object> classObjectEntry : objectMap.entrySet()) {
             for (SubscriberEvent subscriberEvent : subscriberEvents) {
                 if (classObjectEntry.getKey() == subscriberEvent.getParameter()) {
                     try {
+                        classes.add(classObjectEntry.getKey());
                         subscriberEvent.handleEvent(classObjectEntry.getValue());
                     } catch (InvocationTargetException e) {
                         e.printStackTrace();
@@ -56,5 +60,6 @@ public class CompositeSWithSubS {
                 }
             }
         }
+        RxBus.getInstance().mStickyEventMapRemove(classes);
     }
 }
