@@ -23,7 +23,7 @@ public class SubscriberEvent {
     //RxJava {@link Subject}
     private Subscription subscription;
 
-    public SubscriberEvent(Object target, Method method,  EventThread thread) {
+    public SubscriberEvent(Object target, Method method, EventThread thread) {
         if (target == null) {
             throw new NullPointerException("SubscriberEvent target cannot be null.");
         }
@@ -36,8 +36,12 @@ public class SubscriberEvent {
         this.target = target;
         this.method = method;
         this.thread = thread;
-        method.setAccessible(true);
-        initObservable(method.getParameterTypes()[0]);
+        this.method.setAccessible(true);
+        initObservable(this.method.getParameterTypes()[0]);
+    }
+
+    public Class getParameter() {
+        return this.method.getParameterTypes()[0];
     }
 
     private void initObservable(Class aClass) {
@@ -60,7 +64,7 @@ public class SubscriberEvent {
         return subscription;
     }
 
-    protected void handleEvent(Object event) throws InvocationTargetException {
+    public void handleEvent(Object event) throws InvocationTargetException {
         try {
             method.invoke(target, event);
         } catch (IllegalAccessException e) {

@@ -1,5 +1,10 @@
 package com.yan.rxbus;
 
+import android.util.Log;
+
+import java.lang.reflect.InvocationTargetException;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import rx.subscriptions.CompositeSubscription;
@@ -40,5 +45,20 @@ public class CompositeSWithSubS {
         this.compositeSubscription = compositeSubscription;
         this.object = object;
         this.subscriberEvents = subscriberEvents;
+    }
+
+    public void subscriberSticky(Map<Class<?>, Object> objectMap) {
+        for (Map.Entry<Class<?>, Object> classObjectEntry : objectMap.entrySet()) {
+            for (SubscriberEvent subscriberEvent : subscriberEvents) {
+                if (classObjectEntry.getKey() == subscriberEvent.getParameter()) {
+                    try {
+                        subscriberEvent.handleEvent(classObjectEntry.getValue());
+                        objectMap.remove(classObjectEntry.getKey());
+                    } catch (InvocationTargetException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
     }
 }

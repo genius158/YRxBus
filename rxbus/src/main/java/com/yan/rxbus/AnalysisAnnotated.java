@@ -2,7 +2,9 @@ package com.yan.rxbus;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import rx.subscriptions.CompositeSubscription;
@@ -19,7 +21,6 @@ public final class AnalysisAnnotated {
 
     private static CompositeSWithSubS findAnnotatedMethods(Object listenerClass, Set<SubscriberEvent> subscriberMethods, CompositeSubscription compositeSubscription) {
         for (Method method : listenerClass.getClass().getDeclaredMethods()) {
-
             if (method.isBridge()) {
                 continue;
             }

@@ -1,5 +1,9 @@
 package com.yan.rxbus;
 
+import android.util.Log;
+
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
@@ -18,11 +22,14 @@ public class RxBus {
 
     private static RxBus rxBus;
 
+    private final Map<Class<?>, Object> mStickyEventMap;
+
     private ConcurrentMap<Object, CompositeSWithSubS>
             subSConcurrentHashMap = new ConcurrentHashMap<>();
 
     private RxBus() {
         BUS = new SerializedSubject<>(PublishSubject.create());
+        mStickyEventMap = new HashMap<>();
     }
 
     public static synchronized RxBus getInstance() {
@@ -54,6 +61,11 @@ public class RxBus {
         CompositeSWithSubS subscriberMethods =
                 AnalysisAnnotated.findAnnotatedSubscriberMethods(object, compositeSubscription);
         subSConcurrentHashMap.put(object, subscriberMethods);
+
+        // Sticky
+        if (mStickyEventMap.size() > 0) {
+            subscriberMethods.subscriberSticky(mStickyEventMap);
+        }
     }
 
     /**
@@ -70,4 +82,15 @@ public class RxBus {
             subscriberMethods.getCompositeSubscription().unsubscribe();
         subSConcurrentHashMap.remove(object);
     }
+
+
+    /**
+     * 发送一个新Sticky事件
+     */
+    public void postSticky(Object event) {
+        synchronized (mStickyEventMap) {
+            mStickyEventMap.put(event.getClass(), event);
+        }
+    }
+
 }
