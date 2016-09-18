@@ -11,16 +11,12 @@ import rx.functions.Action1;
  */
 public class SubscriberEvent {
 
-    // Object sporting the method.
     private final Object target;
 
-    //Subscriber method.
     private final Method method;
 
-    // Subscriber thread
     private final EventThread thread;
 
-    //RxJava {@link Subject}
     private Subscription subscription;
 
     public SubscriberEvent(Object target, Method method, EventThread thread) {
@@ -67,6 +63,7 @@ public class SubscriberEvent {
     public void handleEvent(Object event) throws InvocationTargetException {
         try {
             method.invoke(target, event);
+            RxBus.getInstance().dellSticky(event);
         } catch (IllegalAccessException e) {
             throw new AssertionError(e);
         } catch (InvocationTargetException e) {

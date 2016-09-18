@@ -1,6 +1,8 @@
 package com.yan.rxbus;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
@@ -15,22 +17,37 @@ import rx.subscriptions.CompositeSubscription;
  * Created by yan on 2016/9/18.
  */
 public class RxBus {
-
-    private final Subject<Object, Object> BUS;
-
     private static RxBus rxBus;
+    private final Subject<Object, Object> BUS;
 
     private final Map<Class<?>, Object> mStickyEventMap;
 
     private ConcurrentMap<Object, CompositeSWithSubS>
             subSConcurrentHashMap = new ConcurrentHashMap<>();
 
+    /**
+     * Sticky消息处理
+     *
+     * @param event
+     */
+    public synchronized void dellSticky(Object event) {
+        if (!mStickyEventMap.isEmpty()) {
+            List<Class> classes = new ArrayList<>();
+
+            for (Map.Entry<Class<?>, Object> objectEntry : mStickyEventMap.entrySet())
+                if (objectEntry.getKey() == event.getClass())
+                    classes.add(event.getClass());
+
+            for (Class aClass : classes) mStickyEventMap.remove(aClass);
+        }
+    }
+
     private RxBus() {
         BUS = new SerializedSubject<>(PublishSubject.create());
         mStickyEventMap = new HashMap<>();
     }
 
-    public static synchronized RxBus getInstance() {
+    public static RxBus getInstance() {
         if (rxBus == null)
             synchronized (RxBus.class) {
                 if (rxBus == null) rxBus = new RxBus();
@@ -38,10 +55,22 @@ public class RxBus {
         return rxBus;
     }
 
+    /**
+     * 事件分发
+     *
+     * @param o
+     */
     public synchronized void post(Object o) {
         BUS.onNext(o);
     }
 
+    /**
+     * 订阅事件
+     *
+     * @param eventType
+     * @param <T>
+     * @return
+     */
     public <T> Observable<T> toObservable(Class<T> eventType) {
         return BUS.ofType(eventType);
     }
@@ -61,7 +90,7 @@ public class RxBus {
         subSConcurrentHashMap.put(object, subscriberMethods);
 
         // Sticky
-        if (mStickyEventMap.size() > 0) {
+        if (!mStickyEventMap.isEmpty()) {
             subscriberMethods.subscriberSticky(mStickyEventMap);
         }
     }
@@ -86,9 +115,8 @@ public class RxBus {
      * 发送一个新Sticky事件
      */
     public void postSticky(Object event) {
-        synchronized (mStickyEventMap) {
-            mStickyEventMap.put(event.getClass(), event);
-        }
+        mStickyEventMap.put(event.getClass(), event);
+        post(event);
     }
 
 }

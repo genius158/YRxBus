@@ -18,7 +18,7 @@ public class Main2Activity extends AppCompatActivity {
         RxBus.getInstance().register(this);
 
         RxBus.getInstance().postSticky(new Float(2323));
-        Intent intent = new Intent(Main2Activity.this, Main3Activity.class);
+        Intent intent = new Intent(Main2Activity.this, MainActivity.class);
         startActivity(intent);
     }
 

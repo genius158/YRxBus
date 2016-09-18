@@ -50,7 +50,6 @@ public class CompositeSWithSubS {
                 if (classObjectEntry.getKey() == subscriberEvent.getParameter()) {
                     try {
                         subscriberEvent.handleEvent(classObjectEntry.getValue());
-                        objectMap.remove(classObjectEntry.getKey());
                     } catch (InvocationTargetException e) {
                         e.printStackTrace();
                     }
