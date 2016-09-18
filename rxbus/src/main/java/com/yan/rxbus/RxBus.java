@@ -1,7 +1,5 @@
 package com.yan.rxbus;
 
-import android.util.Log;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
