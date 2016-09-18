@@ -9,7 +9,7 @@ import rx.subscriptions.CompositeSubscription;
  */
 public class CompositeSWithSubS {
     private CompositeSubscription compositeSubscription;
-    private Object aClass;
+    private Object object;
     private Set<SubscriberEvent> subscriberEvents;
 
     public CompositeSubscription getCompositeSubscription() {
@@ -20,12 +20,12 @@ public class CompositeSWithSubS {
         this.compositeSubscription = compositeSubscription;
     }
 
-    public Object getaClass() {
-        return aClass;
+    public Object getObject() {
+        return object;
     }
 
-    public void setaClass(Class<?> aClass) {
-        this.aClass = aClass;
+    public void setObject(Class<?> object) {
+        this.object = object;
     }
 
     public Set<SubscriberEvent> getSubscriberEvents() {
@@ -36,9 +36,9 @@ public class CompositeSWithSubS {
         this.subscriberEvents = subscriberEvents;
     }
 
-    public CompositeSWithSubS(CompositeSubscription compositeSubscription,Object aClass, Set<SubscriberEvent> subscriberEvents) {
+    public CompositeSWithSubS(CompositeSubscription compositeSubscription, Object object, Set<SubscriberEvent> subscriberEvents) {
         this.compositeSubscription = compositeSubscription;
-        this.aClass = aClass;
+        this.object = object;
         this.subscriberEvents = subscriberEvents;
     }
 }

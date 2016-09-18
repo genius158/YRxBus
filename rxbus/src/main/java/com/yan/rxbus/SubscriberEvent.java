@@ -1,7 +1,5 @@
 package com.yan.rxbus;
 
-import android.util.Log;
-
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
@@ -44,7 +42,7 @@ public class SubscriberEvent {
 
     private void initObservable(Class aClass) {
         subscription = RxBus.getInstance().
-                toObserverable(aClass)
+                toObservable(aClass)
                 .observeOn(EventThread.getScheduler(thread))
                 .subscribe(new Action1<Object>() {
                     @Override
@@ -90,7 +88,6 @@ public class SubscriberEvent {
         }
 
         final SubscriberEvent other = (SubscriberEvent) obj;
-
         return method.equals(other.method) && target == other.target;
     }
 

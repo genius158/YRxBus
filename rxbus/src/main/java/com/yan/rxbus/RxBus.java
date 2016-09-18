@@ -16,10 +16,10 @@ public class RxBus {
 
     private final Subject<Object, Object> BUS;
 
-    private ConcurrentMap<Object, CompositeSWithSubS> subSConcurrentHashMap =
-            new ConcurrentHashMap<>();
-
     private static RxBus rxBus;
+
+    private ConcurrentMap<Object, CompositeSWithSubS>
+            subSConcurrentHashMap = new ConcurrentHashMap<>();
 
     private RxBus() {
         BUS = new SerializedSubject<>(PublishSubject.create());
@@ -37,19 +37,16 @@ public class RxBus {
         BUS.onNext(o);
     }
 
-    public <T> Observable<T> toObserverable(Class<T> eventType) {
+    public <T> Observable<T> toObservable(Class<T> eventType) {
         return BUS.ofType(eventType);
     }
 
-
     /**
-     * ------------------------------------------------------------------------------------------
-     * 注册
+     * register
      *
      * @param object
      */
-
-    public synchronized void register(Object object) {
+    public void register(Object object) {
         if (object == null) {
             throw new NullPointerException("Object to register must not be null.");
         }
@@ -59,13 +56,18 @@ public class RxBus {
         subSConcurrentHashMap.put(object, subscriberMethods);
     }
 
+    /**
+     * unRegister
+     *
+     * @param object
+     */
     public void unRegister(Object object) {
         if (object == null) {
             throw new NullPointerException("Object to register must not be null.");
         }
         CompositeSWithSubS subscriberMethods = subSConcurrentHashMap.get(object);
-        subscriberMethods.getCompositeSubscription().unsubscribe();
+        if (subscriberMethods != null)
+            subscriberMethods.getCompositeSubscription().unsubscribe();
         subSConcurrentHashMap.remove(object);
     }
-
 }
