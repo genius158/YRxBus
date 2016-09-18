@@ -29,7 +29,8 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                RxBus.getInstance().post(new String("test"));
+                RxBus.getInstance().post(new SSSS() {
+                });
             }
         });
         button.setOnLongClickListener(new View.OnLongClickListener() {
@@ -67,10 +68,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Subscribe(thread = EventThread.MAIN_THREAD)
-    public void show(String str) {
-        if (str.equals("test"))
-            Toast.makeText(this, str, Toast.LENGTH_SHORT).show();
+    public void show(SSSS str) {
+            Toast.makeText(this, "SSSS", Toast.LENGTH_SHORT).show();
     }
 
+    interface SSSS {
+
+    }
 
 }

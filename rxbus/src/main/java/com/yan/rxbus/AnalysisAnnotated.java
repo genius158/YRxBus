@@ -2,9 +2,7 @@ package com.yan.rxbus;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import rx.subscriptions.CompositeSubscription;
@@ -32,10 +30,6 @@ public final class AnalysisAnnotated {
                 }
 
                 Class<?> parameterClazz = parameterTypes[0];
-                if (parameterClazz.isInterface()) {
-                    throw new IllegalArgumentException("Method " + method + " has @Subscribe annotation on " + parameterClazz
-                            + " which is an interface.  Subscription must be on a concrete class type.");
-                }
 
                 if ((method.getModifiers() & Modifier.PUBLIC) == 0) {
                     throw new IllegalArgumentException("Method " + method + " has @Subscribe annotation on " + parameterClazz
