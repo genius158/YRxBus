@@ -5,7 +5,7 @@ RxBus 使用与eventbus 相同。
 
 # include lib
 
-    Gradle
+    Gradle:
     compile 'com.yan.rxbus:rxbus:1.0.0'
   
     maven:
