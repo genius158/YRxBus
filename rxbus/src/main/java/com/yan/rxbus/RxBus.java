@@ -1,5 +1,7 @@
 package com.yan.rxbus;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -73,7 +75,7 @@ public class RxBus {
      * make relevance
      *
      * @param eventType eventType
-     * @param <T> T
+     * @param <T>       T
      * @return Observable
      */
     public final <T> Observable<T> toObservable(Class<T> eventType) {
@@ -113,12 +115,12 @@ public class RxBus {
         if (subscriberMethods != null)
             subscriberMethods.getCompositeSubscription().unsubscribe();
         subSConcurrentHashMap.remove(object);
-        mStickyEventMap.remove(object);
     }
 
 
     /**
      * post a sticky event
+     *
      * @param event event
      */
     public final void postSticky(Object event) {

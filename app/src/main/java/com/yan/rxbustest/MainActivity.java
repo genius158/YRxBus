@@ -36,12 +36,17 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        button1.setOnClickListener(view ->
-                RxBus.getInstance().post((Action.Action1) () -> "Action1")
+        button1.setOnClickListener(view -> {
+                    RxBus.getInstance().post((Action.Action1) () -> "Action1");
+                    RxBus.getInstance().post((Action.Action2) () -> "Action2");
+                    RxBus.getInstance().post((Action.Action2) () -> "Action3");
+                }
         );
 
-        button2.setOnClickListener(view ->
-                RxBus.getInstance().post((Action.Action2) () -> "Action2")
+        button2.setOnClickListener(view -> {
+                    RxBus.getInstance().post((Action.Action2) () -> "Action2");
+                    RxBus.getInstance().post((Action.Action2) () -> "Action3");
+                }
         );
 
         button3.setOnClickListener(view ->
