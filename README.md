@@ -1,7 +1,7 @@
 # YRxBus
 ========
 # introduce
-RxBus 使用与eventbus 相同。
+RxBus ，当你的项目中用到了rxjava ，同时又有跨界面的响应式需求，而又嫌麻烦、不想再添加更多的库，则可以使用这个库，使用方法与eventbus 相同。
 
 # include lib
 
@@ -65,5 +65,4 @@ RxBus 使用与eventbus 相同。
     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
     See the License for the specific language governing permissions and
     limitations under the License.
-
 
