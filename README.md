@@ -24,10 +24,10 @@ RxBus 使用与eventbus 相同。
 # how to use
   
     // 普通响应发送  
-    RxBus.getInstance().post(AnyType anyType);
+    RxBus.getInstance().post(AnyType);
     
     // Sticky发送  
-    RxBus.getInstance().postSticky(AnyType anyType);
+    RxBus.getInstance().postSticky(AnyType);
   
     // 注册
     @Override
@@ -45,8 +45,8 @@ RxBus 使用与eventbus 相同。
 
     // 响应
     @Subscribe(thread = EventThread.MAIN_THREAD)
-    public void show(Action.Action1 str) {
-        Toast.makeText(this, str.getStr(), Toast.LENGTH_SHORT).show();
+    public void show(AnyType str) {
+        Toast.makeText(this, str+"", Toast.LENGTH_SHORT).show();
     }
 
 
