@@ -28,7 +28,7 @@ public class RxBus {
     /**
      * Sticky dell
      *
-     * @param event
+     * @param event event
      */
     public final synchronized void dellSticky(Object event) {
         if (!mStickyEventMap.isEmpty()) {
@@ -62,7 +62,7 @@ public class RxBus {
     /**
      * post event
      *
-     * @param o
+     * @param o event
      */
     public final synchronized void post(Object o) {
         BUS.onNext(o);
@@ -72,9 +72,9 @@ public class RxBus {
      * the most important method
      * make relevance
      *
-     * @param eventType
-     * @param <T>
-     * @return
+     * @param eventType eventType
+     * @param <T> T
+     * @return Observable
      */
     public final <T> Observable<T> toObservable(Class<T> eventType) {
         return BUS.ofType(eventType);
@@ -83,7 +83,7 @@ public class RxBus {
     /**
      * register
      *
-     * @param object
+     * @param object object
      */
     public final void register(Object object) {
         if (object == null) {
@@ -103,7 +103,7 @@ public class RxBus {
     /**
      * unRegister
      *
-     * @param object
+     * @param object object
      */
     public final void unRegister(Object object) {
         if (object == null) {
@@ -119,6 +119,7 @@ public class RxBus {
 
     /**
      * post a sticky event
+     * @param event event
      */
     public final void postSticky(Object event) {
         mStickyEventMap.put(event.getClass(), event);

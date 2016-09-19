@@ -12,6 +12,7 @@ import rx.subscriptions.CompositeSubscription;
  * Created by yan on 2016/9/18.
  */
 public class CompositeSWithSubS {
+
     private CompositeSubscription compositeSubscription;
     private Object object;
     private Set<SubscriberEvent> subscriberEvents;
@@ -46,6 +47,12 @@ public class CompositeSWithSubS {
         this.subscriberEvents = subscriberEvents;
     }
 
+    /**
+     * subscriberSticky
+     * for dell sticky
+     *
+     * @param objectMap objectMap
+     */
     public final void subscriberSticky(Map<Class<?>, Object> objectMap) {
         List<Class> classes = new ArrayList<>();
         for (Map.Entry<Class<?>, Object> classObjectEntry : objectMap.entrySet())

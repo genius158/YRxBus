@@ -9,12 +9,18 @@ import rx.subscriptions.CompositeSubscription;
 
 /**
  * Created by yan on 2016/9/18.
- * <p/>
  * AnalysisAnnotation class
  * find method annotated @Subscribe
  */
 public final class AnalysisAnnotated {
 
+    /**
+     * findAnnotatedSubscriberMethods
+     *
+     * @param listenerClass         listenerClass
+     * @param compositeSubscription compositeSubscription
+     * @return CompositeSWithSubS
+     */
     public static CompositeSWithSubS findAnnotatedSubscriberMethods(Object listenerClass, CompositeSubscription compositeSubscription) {
         Set<SubscriberEvent> producerMethods = new HashSet<>();
         return findAnnotatedMethods(listenerClass, producerMethods, compositeSubscription);

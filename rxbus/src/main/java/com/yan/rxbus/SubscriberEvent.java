@@ -40,6 +40,11 @@ public class SubscriberEvent {
         return this.method.getParameterTypes()[0];
     }
 
+    /**
+     * initObservable
+     *
+     * @param aClass aClass
+     */
     private final void initObservable(Class aClass) {
         subscription = RxBus.getInstance().
                 toObservable(aClass)
@@ -61,6 +66,13 @@ public class SubscriberEvent {
         return subscription;
     }
 
+
+    /**
+     * handleEvent
+     *
+     * @param event event
+     * @throws InvocationTargetException
+     */
     public final void handleEvent(Object event) throws InvocationTargetException {
         try {
             method.invoke(target, event);
