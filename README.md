@@ -5,27 +5,27 @@ RxBus 使用与eventbus 相同。
 
 # how to use
   
-    //普通响应发送  
+    // 普通响应发送  
     RxBus.getInstance().post(AnyType anyType);
     
-    //Sticky发送  
+    // Sticky发送  
     RxBus.getInstance().postSticky(AnyType anyType);
   
-    //注册
+    // 注册
     @Override
       protected void onCreate(Bundle savedInstanceState) {
         ...
         RxBus.getInstance().register(this);
     }
     
-    //注销
+    // 注销
     @Override
     protected void onDestroy() {
         super.onDestroy();
         RxBus.getInstance().unRegister(this);
     }
 
-    //响应
+    // 响应
     @Subscribe(thread = EventThread.MAIN_THREAD)
     public void show(Action.Action1 str) {
         Toast.makeText(this, str.getStr(), Toast.LENGTH_SHORT).show();
