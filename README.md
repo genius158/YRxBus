@@ -3,6 +3,24 @@
 # introduce
 RxBus 使用与eventbus 相同。
 
+# include lib
+
+    Gradle
+    compile 'com.yan.rxbus:rxbus:1.0.0'
+  
+    maven:
+    <dependency>
+      <groupId>com.yan.rxbus</groupId>
+      <artifactId>rxbus</artifactId>
+      <version>1.0.0</version>
+      <type>pom</type>
+    </dependency> 
+    
+    Ivy:
+    <dependency org='com.yan.rxbus' name='rxbus' rev='1.0.0'>
+    <artifact name='$AID' ext='pom'></artifact>
+    </dependency>
+
 # how to use
   
     // 普通响应发送  
