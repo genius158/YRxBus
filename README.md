@@ -1,7 +1,22 @@
 # YRxBus
 ========
 # introduce
+
 RxBus ，当你的项目中用到了rxjava ，同时又有跨界面的响应式需求，而又嫌麻烦、不想再添加更多的库，则可以使用这个库，使用方法与eventbus 相同。
+
+看过一些别人写的Rxbus ， 
+@Subscribe( 
+thread = EventThread.IO, 
+tags = { 
+@Tag(BusAction.EAT_MORE) 
+} 
+增加了一个tag ，本身RxJava 就封装了ofType（）用来实现响应，而这个tag又要通过注解重新遍历一遍注解过的方法，得到tag 标记，再主动选择方法用于响应，这样就几乎让oftype（）失去了它的作用。
+
+还有的库增加了别的注解，我觉得完全没有必要，像eventbus 那样简简单单，好理解、好使用不是很好嘛。
+
+接下来重点，个人写的RxBus清纯不做作。
+
+
 
 # include lib
 
