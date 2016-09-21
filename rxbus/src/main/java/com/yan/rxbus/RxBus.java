@@ -25,10 +25,10 @@ public final class RxBus extends RxHelper {
     /**
      * post event
      *
-     * @param o event
+     * @param event event
      */
-    public synchronized void post(Object o) {
-        BUS.onNext(o);
+    public synchronized void post(Object event) {
+        BUS.onNext(event);
     }
 
 
