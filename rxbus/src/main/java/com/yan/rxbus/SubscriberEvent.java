@@ -9,7 +9,7 @@ import rx.functions.Action1;
 /**
  * Created by yan on 2016/9/18.
  */
-public class SubscriberEvent {
+public class SubscriberEvent extends RxHelper {
 
     private final Object target;
 
@@ -46,8 +46,7 @@ public class SubscriberEvent {
      * @param aClass aClass
      */
     private final void initObservable(Class aClass) {
-        subscription = RxBus.getInstance().
-                toObservable(aClass)
+        subscription = toObservable(aClass)
                 .onBackpressureBuffer()
                 .observeOn(EventThread.getScheduler(thread))
                 .subscribe(new Action1<Object>() {
@@ -55,7 +54,7 @@ public class SubscriberEvent {
                     public void call(Object event) {
                         try {
                             handleEvent(event);
-                            RxBus.getInstance().dellSticky(event);
+                            dellSticky(event);
                         } catch (InvocationTargetException e) {
                             throwRuntimeException("Could not dispatch event: " + event.getClass() + " to subscriber " + SubscriberEvent.this, e);
                         }

@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import com.yan.rxbus.EventThread;
 import com.yan.rxbus.RxBus;
+import com.yan.rxbus.RxHelper;
 import com.yan.rxbus.Subscribe;
 
 import java.util.TimerTask;
