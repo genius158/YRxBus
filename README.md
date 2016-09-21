@@ -21,18 +21,18 @@ tags = {
 # include lib
 
     Gradle:
-    compile 'com.yan.rxbus:rxbus:1.0.3'
+    compile 'com.yan.rxbus:rxbus:1.0.4'
   
     maven:
     <dependency>
       <groupId>com.yan.rxbus</groupId>
       <artifactId>rxbus</artifactId>
-      <version>1.0.3</version>
+      <version>1.0.4</version>
       <type>pom</type>
     </dependency> 
     
     Ivy:
-    <dependency org='com.yan.rxbus' name='rxbus' rev='1.0.3'>
+    <dependency org='com.yan.rxbus' name='rxbus' rev='1.0.4'>
     <artifact name='$AID' ext='pom'></artifact>
     </dependency>
 
