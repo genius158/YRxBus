@@ -11,7 +11,7 @@ import rx.subscriptions.CompositeSubscription;
 /**
  * Created by yan on 2016/9/18.
  */
-public class CompositeSWithSubS {
+public class CompositeSWithSubS extends RxHelper {
 
     private CompositeSubscription compositeSubscription;
     private Object object;
@@ -65,6 +65,6 @@ public class CompositeSWithSubS {
                         e.printStackTrace();
                     }
 
-        RxBus.getInstance().mStickyEventMapRemove(classes);
+        mStickyEventMapRemove(classes);
     }
 }

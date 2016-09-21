@@ -34,7 +34,7 @@ public class RxHelper {
      * @param <T>       T
      * @return Observable
      */
-    protected final <T> Observable<T> toObservable(Class<T> eventType) {
+    protected static <T> Observable<T> toObservable(Class<T> eventType) {
         return BUS.ofType(eventType);
     }
 
@@ -43,7 +43,7 @@ public class RxHelper {
      *
      * @param event event
      */
-    protected final synchronized void dellSticky(Object event) {
+    protected static synchronized void dellSticky(Object event) {
         if (!mStickyEventMap.isEmpty()) {
             List<Class> classes = new ArrayList<>();
 
@@ -55,7 +55,7 @@ public class RxHelper {
         }
     }
 
-    protected final void mStickyEventMapRemove(List<Class> classes) {
+    protected static void mStickyEventMapRemove(List<Class> classes) {
         for (Class aClass : classes) mStickyEventMap.remove(aClass);
     }
 }
