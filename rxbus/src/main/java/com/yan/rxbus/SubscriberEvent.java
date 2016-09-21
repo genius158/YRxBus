@@ -48,6 +48,7 @@ public class SubscriberEvent {
     private final void initObservable(Class aClass) {
         subscription = RxBus.getInstance().
                 toObservable(aClass)
+                .onBackpressureBuffer()
                 .observeOn(EventThread.getScheduler(thread))
                 .subscribe(new Action1<Object>() {
                     @Override

@@ -37,9 +37,12 @@ public class MainActivity extends AppCompatActivity {
 
 
         button1.setOnClickListener(view -> {
-                    RxBus.getInstance().post((Action.Action1) () -> "Action1");
-                    RxBus.getInstance().post((Action.Action2) () -> "Action2");
-                    RxBus.getInstance().post((Action.Action2) () -> "Action3");
+                    for (int i = 0; i < 2000; i++) {
+                        RxBus.getInstance().post((Action.Action1) () -> "Action1");
+                        RxBus.getInstance().post((Action.Action2) () -> "Action2");
+                        RxBus.getInstance().post((Action.Action2) () -> "Action3");
+                    }
+
                 }
         );
 
@@ -77,16 +80,21 @@ public class MainActivity extends AppCompatActivity {
 
     @Subscribe(thread = EventThread.MAIN_THREAD)
     public void show(Action.Action1 str) {
-        Toast.makeText(this, str.getStr(), Toast.LENGTH_SHORT).show();
+       // Toast.makeText(this, str.getStr(), Toast.LENGTH_SHORT).show();
+        Log.i(" str.getStr()", str.getStr());
+
     }
 
     @Subscribe(thread = EventThread.MAIN_THREAD)
     public void show(Action.Action2 str) {
-        Toast.makeText(this, str.getStr(), Toast.LENGTH_SHORT).show();
+     //   Toast.makeText(this, str.getStr(), Toast.LENGTH_SHORT).show();
+       Log.i(" str.getStr()", str.getStr());
     }
 
     @Subscribe(thread = EventThread.MAIN_THREAD)
     public void show(Action.Action3 str) {
-        Toast.makeText(this, str.getStr(), Toast.LENGTH_SHORT).show();
+     //   Toast.makeText(this, str.getStr(), Toast.LENGTH_SHORT).show();
+        Log.i(" str.getStr()", str.getStr());
+
     }
 }
