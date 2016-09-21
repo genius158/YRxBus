@@ -22,6 +22,10 @@ public class RxHelper {
         mStickyEventMap = new HashMap<>();
     }
 
+    protected RxHelper() {
+    }
+
+
     /**
      * the most important method
      * make relevance
